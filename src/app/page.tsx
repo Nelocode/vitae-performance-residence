@@ -183,26 +183,26 @@ export default function Home() {
 </div>
 </motion.section>
 {/* MASTERPLAN TECHNICAL GRID */}
-<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 0.1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
+<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
 <div className="absolute inset-0 blueprint-grid"></div>
 <div className="max-w-[1920px] mx-auto relative z-10">
 <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-20 relative z-10">
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+  <div className="bg-surface-container p-8 border border-outline-variant/10">
     <span className="material-symbols-outlined text-primary text-3xl mb-4">square_foot</span>
     <h5 className="font-headline text-3xl font-bold text-white mb-1">8,537.63</h5>
     <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 de terreno total</p>
   </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+  <div className="bg-surface-container p-8 border border-outline-variant/10">
     <span className="material-symbols-outlined text-primary text-3xl mb-4">potted_plant</span>
     <h5 className="font-headline text-3xl font-bold text-white mb-1">1,791</h5>
     <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 Áreas comunes peatonales</p>
   </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+  <div className="bg-surface-container p-8 border border-outline-variant/10">
     <span className="material-symbols-outlined text-primary text-3xl mb-4">home</span>
     <h5 className="font-headline text-3xl font-bold text-white mb-1">22</h5>
     <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Residencias de alto rendimiento</p>
   </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+  <div className="bg-surface-container p-8 border border-outline-variant/10">
     <span className="material-symbols-outlined text-primary text-3xl mb-4">calendar_today</span>
     <h5 className="font-headline text-3xl font-bold text-white mb-1">Feb 2026</h5>
     <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Inicio Fase 1</p>
@@ -216,7 +216,7 @@ export default function Home() {
   className="relative w-full h-full"
 >
   <Image 
-    className="object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000" 
+    className="object-cover opacity-90 group-hover:grayscale-0 transition-all duration-1000" 
     alt="Architectural technical drawing of a luxury villa masterplan" 
     src="/renders/VITAE_PLANTA_C.png"
     fill
@@ -387,7 +387,7 @@ export default function Home() {
     
     <div className="relative border-l border-primary/20 ml-12 space-y-24 py-12">
       <div className="relative pl-16">
-        <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(123,143,98,0.5)]"></div>
+        <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 bg-primary rounded-full shadow-[0_0_15px_rgba(97,161,133,0.5)]"></div>
         <span className="font-label text-primary font-bold text-sm tracking-widest uppercase block mb-2">Febrero 2026</span>
         <h4 className="font-headline text-3xl font-bold text-white mb-4 italic">Inicio de la visión</h4>
         <p className="font-body text-on-surface-variant max-w-xl text-sm leading-relaxed">Conceptualización del ecosistema de alto rendimiento y adquisición estratégica del lote en Vistacana.</p>

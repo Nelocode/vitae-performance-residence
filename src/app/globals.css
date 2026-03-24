@@ -2,10 +2,10 @@
 
 @theme {
   /* Biophilic Palette Updates */
-  --color-primary: #7B8F62; /* Verde Oliva/Musgo */
-  --color-on-primary: #1C2611;
-  --color-primary-container: #475833;
-  --color-on-primary-container: #C3DBA5;
+  --color-primary: #61A185; /* Sage/Sea Green */
+  --color-on-primary: #053523;
+  --color-primary-container: #2A4D3F;
+  --color-on-primary-container: #A8D1C0;
   
   --color-secondary: #9BA0A3; /* Gris Técnico */
   --color-on-secondary: #1F2224;
