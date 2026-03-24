@@ -110,6 +110,12 @@ export default function Home() {
                             Preparación neuro-fisiológica. Despierta tus sistemas metabólicos para el rendimiento óptimo a través de senderos de baja intensidad.
                         </p>
 </div>
+<Image 
+  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  alt="Peaceful nature trails for activation" 
+  src="/renders/WELLNESS_ESTANCIA_10.03.26.png"
+  fill
+/>
 <div className="absolute bottom-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
 </div>
 {/* Progression */}
@@ -124,6 +130,12 @@ export default function Home() {
                             Foco en ritmo y resistencia. Pistas de atletismo, zonas de cardio outdoor y circuitos de calistenia ligera.
                         </p>
 </div>
+<Image 
+  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  alt="High-end gym facilities for progression" 
+  src="/renders/WELLNESS_GIMNASIO_10.03.26.png"
+  fill
+/>
 <div className="absolute bottom-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
 </div>
 {/* Intensity */}
@@ -139,7 +151,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-20 group-hover:opacity-40 transition-opacity duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Modern padel court with architectural lighting" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png"
   fill
@@ -158,6 +170,12 @@ export default function Home() {
                             Descenso controlado y meditación. Zonas de estiramiento, plataformas contemplativas y áreas lounge sombreadas.
                         </p>
 </div>
+<Image 
+  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  alt="Lounge area for calm and meditation" 
+  src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png"
+  fill
+/>
 <div className="absolute bottom-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
 </div>
 {/* Recovery */}
@@ -173,7 +191,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 group-hover:opacity-30 transition-opacity duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Luxury recovery spa and pool area" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png"
   fill
