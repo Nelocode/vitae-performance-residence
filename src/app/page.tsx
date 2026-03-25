@@ -111,7 +111,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 transition-all duration-700 z-0" 
   alt="Peaceful nature trails for activation" 
   src="/renders/WELLNESS_ESTANCIA_10.03.26.png"
   fill
@@ -131,7 +131,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 transition-all duration-700 z-0" 
   alt="High-end gym facilities for progression" 
   src="/renders/WELLNESS_GIMNASIO_10.03.26.png"
   fill
@@ -151,7 +151,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 transition-all duration-700 z-0" 
   alt="Modern padel court with architectural lighting" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png"
   fill
@@ -171,7 +171,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 transition-all duration-700 z-0" 
   alt="Lounge area for calm and meditation" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png"
   fill
@@ -191,7 +191,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 transition-all duration-700 z-0" 
   alt="Luxury recovery spa and pool area" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png"
   fill
@@ -234,13 +234,13 @@ export default function Home() {
   className="relative w-full h-full"
 >
   <Image 
-    className="object-cover opacity-100 grayscale-40 group-hover:grayscale-0 transition-all duration-1000" 
+    className="object-cover opacity-100 transition-all duration-1000 z-0" 
     alt="Architectural technical drawing of a luxury villa masterplan" 
     src="/renders/VITAE_PLANTA_C.png"
     fill
   />
 </motion.div>
-<div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors">
+<div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors">
 <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 font-label uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">
                                 Expand Technical Blueprint
                             </motion.button>
