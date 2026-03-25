@@ -111,7 +111,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
   alt="Peaceful nature trails for activation" 
   src="/renders/WELLNESS_ESTANCIA_10.03.26.png"
   fill
@@ -131,7 +131,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
   alt="High-end gym facilities for progression" 
   src="/renders/WELLNESS_GIMNASIO_10.03.26.png"
   fill
@@ -151,7 +151,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
   alt="Modern padel court with architectural lighting" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png"
   fill
@@ -171,7 +171,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
   alt="Lounge area for calm and meditation" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png"
   fill
@@ -191,7 +191,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-60 grayscale-0 group-hover:opacity-100 transition-all duration-700 -z-10" 
   alt="Luxury recovery spa and pool area" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png"
   fill
