@@ -111,7 +111,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Peaceful nature trails for activation" 
   src="/renders/WELLNESS_ESTANCIA_10.03.26.png"
   fill
@@ -131,7 +131,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="High-end gym facilities for progression" 
   src="/renders/WELLNESS_GIMNASIO_10.03.26.png"
   fill
@@ -151,7 +151,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Modern padel court with architectural lighting" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png"
   fill
@@ -171,7 +171,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Lounge area for calm and meditation" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png"
   fill
@@ -191,7 +191,7 @@ export default function Home() {
                         </p>
 </div>
 <Image 
-  className="absolute inset-0 object-cover opacity-10 grayscale group-hover:opacity-30 group-hover:grayscale-0 transition-all duration-700 -z-10" 
+  className="absolute inset-0 object-cover opacity-30 grayscale group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-700 -z-10" 
   alt="Luxury recovery spa and pool area" 
   src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png"
   fill
@@ -201,7 +201,7 @@ export default function Home() {
 </div>
 </motion.section>
 {/* MASTERPLAN TECHNICAL GRID */}
-<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 0.1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
+<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
 <div className="absolute inset-0 blueprint-grid"></div>
 <div className="max-w-[1920px] mx-auto relative z-10">
 <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-20 relative z-10">
@@ -234,7 +234,7 @@ export default function Home() {
   className="relative w-full h-full"
 >
   <Image 
-    className="object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-1000" 
+    className="object-cover opacity-100 grayscale-40 group-hover:grayscale-0 transition-all duration-1000" 
     alt="Architectural technical drawing of a luxury villa masterplan" 
     src="/renders/VITAE_PLANTA_C.png"
     fill
