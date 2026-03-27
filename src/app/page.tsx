@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,14 +11,7 @@ import { VILLAS } from './villas/[slug]/data';
 export default function Home() {
   const { language, setLanguage } = useLanguage();
   const t = HOME_TRANSLATIONS[language];
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [activeSection, setActiveSection] = useState<string>('performance');
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.playbackRate = 0.65;
-    }
-  }, []);
 
   useEffect(() => {
     const sectionIds = ['performance', 'masterplan', 'wellness', 'villas', 'location', 'team'];
@@ -110,9 +103,15 @@ export default function Home() {
       <main>
         {/* HERO */}
         <section className="relative min-h-screen flex flex-col justify-center items-center px-8 overflow-hidden">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80">
-            <source src="/dynamic-video.mp4" type="video/mp4" />
-          </video>
+          <div className="absolute inset-0 w-full h-full overflow-hidden scale-105 pointer-events-none">
+            <iframe
+              src="https://player.vimeo.com/video/1177694981?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&controls=0"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full"
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              title="Vitae Residences Background"
+            ></iframe>
+          </div>
           <div className="absolute inset-0 bg-black/70 z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 hero-gradient z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 blueprint-grid opacity-30 z-[1] pointer-events-none"></div>
