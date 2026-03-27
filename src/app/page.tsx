@@ -167,10 +167,11 @@ export default function Home() {
         <section className="relative min-h-screen flex flex-col justify-center items-center px-8 overflow-hidden">
           <div className="absolute inset-0 w-full h-full">
             <iframe
-              src="https://player.vimeo.com/video/1177708228?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+              src="https://player.vimeo.com/video/1177708228?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&playsinline=1"
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115vw] h-[115vh] object-cover opacity-80 pointer-events-none"
-              allow="autoplay; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture"
               style={{ border: 'none' }}
+              title="VITAE Residences Hero Video"
             ></iframe>
           </div>
           <div className="absolute inset-0 bg-black/70 z-[1] pointer-events-none"></div>
