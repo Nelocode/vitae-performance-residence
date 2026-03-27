@@ -1,17 +1,68 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [activeSection, setActiveSection] = useState<string>('performance');
 
   useEffect(() => {
     if (heroVideoRef.current) {
       heroVideoRef.current.playbackRate = 0.65;
     }
   }, []);
+
+  useEffect(() => {
+    const sectionIds = ['performance', 'masterplan', 'cycle', 'villas', 'evolution'];
+
+    const handleScroll = () => {
+      const viewportMid = window.scrollY + window.innerHeight / 2;
+      let closest = sectionIds[0];
+      let minDist = Infinity;
+
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const elMid = window.scrollY + rect.top + rect.height / 2;
+        const dist = Math.abs(viewportMid - elMid);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = id;
+        }
+      });
+
+      setActiveSection(closest);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLink = (section: string, label: string) => {
+    const isActive = activeSection === section;
+    return (
+      <a
+        className={`relative transition-all font-manrope uppercase tracking-[0.2em] text-[10px] lg:text-xs pb-1 ${
+          isActive
+            ? 'text-primary font-semibold'
+            : 'text-white/60 hover:text-white'
+        }`}
+        href={`#${section}`}
+      >
+        {label}
+        <span
+          className={`absolute bottom-0 left-0 w-full h-px bg-primary transition-transform duration-300 origin-left ${
+            isActive ? 'scale-x-100' : 'scale-x-0'
+          }`}
+        />
+      </a>
+    );
+  };
 
   return (
     <div className="selection:bg-primary selection:text-on-primary bg-background">
@@ -20,13 +71,14 @@ export default function Home() {
 <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md dark:bg-transparent">
 <div className="flex justify-between items-center w-full px-8 py-6 max-w-[1920px] mx-auto">
 <div className="relative h-10 w-32">
-  <Image src="/logo-final.png" alt="VITAE Logo" fill className="object-contain" priority />
+  <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" priority />
 </div>
 <div className="hidden md:flex space-x-12">
-<a className="text-white/70 hover:text-white transition-colors font-manrope uppercase tracking-[0.2em] text-[10px] lg:text-xs" href="#performance">Performance</a>
-<a className="text-white/70 hover:text-white transition-colors font-manrope uppercase tracking-[0.2em] text-[10px] lg:text-xs" href="#cycle">Cycle</a>
-<a className="text-white/70 hover:text-white transition-colors font-manrope uppercase tracking-[0.2em] text-[10px] lg:text-xs" href="#villas">Villas</a>
-<a className="text-primary font-bold border-b border-primary pb-1 font-manrope uppercase tracking-[0.2em] text-[10px] lg:text-xs" href="#evolution">Evolution</a>
+  {navLink('performance', 'Performance')}
+  {navLink('masterplan', 'Masterplan')}
+  {navLink('cycle', 'Cycle')}
+  {navLink('villas', 'Villas')}
+  {navLink('evolution', 'Evolution')}
 </div>
 <button className="bg-primary text-on-primary px-6 py-2 font-manrope uppercase tracking-widest text-[10px] font-bold hover:bg-primary-container transition-all">
                 Access
@@ -88,6 +140,54 @@ export default function Home() {
 <p className="font-body text-on-surface-variant text-base leading-loose">
                         Diseñado para atletas de la vida, emprendedores de alto impacto y visionarios que entienden que el entorno es el catalizador de la evolución biológica.
                     </p>
+</div>
+</div>
+</motion.section>
+{/* MASTERPLAN TECHNICAL GRID */}
+<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
+<div className="absolute inset-0 blueprint-grid"></div>
+<div className="max-w-[1920px] mx-auto relative z-10">
+<div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-20 relative z-10">
+  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+    <span className="material-symbols-outlined text-primary text-3xl mb-4">square_foot</span>
+    <h5 className="font-headline text-3xl font-bold text-white mb-1">8,537.63</h5>
+    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 de terreno total</p>
+  </div>
+  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+    <span className="material-symbols-outlined text-primary text-3xl mb-4">potted_plant</span>
+    <h5 className="font-headline text-3xl font-bold text-white mb-1">1,791</h5>
+    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 Áreas comunes peatonales</p>
+  </div>
+  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+    <span className="material-symbols-outlined text-primary text-3xl mb-4">home</span>
+    <h5 className="font-headline text-3xl font-bold text-white mb-1">22</h5>
+    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Residencias de alto rendimiento</p>
+  </div>
+  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
+    <span className="material-symbols-outlined text-primary text-3xl mb-4">calendar_today</span>
+    <h5 className="font-headline text-3xl font-bold text-white mb-1">Feb 2026</h5>
+    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Inicio Fase 1</p>
+  </div>
+</div>
+<div className="lg:col-span-12 bg-surface-container h-[600px] border border-outline-variant/20 flex items-center justify-center group overflow-hidden relative z-10">
+<motion.div 
+  initial={{ scale: 1.15 }} 
+  whileInView={{ scale: 1 }} 
+  transition={{ duration: 1.5, ease: "easeOut" }} 
+  className="relative w-full h-full"
+>
+  <Image 
+    className="object-cover opacity-100 transition-all duration-1000 z-0" 
+    alt="Architectural technical drawing of a luxury villa masterplan" 
+    src="/renders/VITAE_PLANTA_C.png"
+    fill
+  />
+</motion.div>
+<div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors">
+<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 font-label uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">
+                                Expand Technical Blueprint
+                            </motion.button>
+</div>
 </div>
 </div>
 </motion.section>
@@ -200,54 +300,6 @@ export default function Home() {
 </div>
 </div>
 </motion.section>
-{/* MASTERPLAN TECHNICAL GRID */}
-<motion.section id="masterplan" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-dim relative">
-<div className="absolute inset-0 blueprint-grid"></div>
-<div className="max-w-[1920px] mx-auto relative z-10">
-<div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-8 mb-20 relative z-10">
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
-    <span className="material-symbols-outlined text-primary text-3xl mb-4">square_foot</span>
-    <h5 className="font-headline text-3xl font-bold text-white mb-1">8,537.63</h5>
-    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 de terreno total</p>
-  </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
-    <span className="material-symbols-outlined text-primary text-3xl mb-4">potted_plant</span>
-    <h5 className="font-headline text-3xl font-bold text-white mb-1">1,791</h5>
-    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">m2 Áreas comunes peatonales</p>
-  </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
-    <span className="material-symbols-outlined text-primary text-3xl mb-4">home</span>
-    <h5 className="font-headline text-3xl font-bold text-white mb-1">22</h5>
-    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Residencias de alto rendimiento</p>
-  </div>
-  <div className="bg-surface-container-low p-8 border border-outline-variant/10">
-    <span className="material-symbols-outlined text-primary text-3xl mb-4">calendar_today</span>
-    <h5 className="font-headline text-3xl font-bold text-white mb-1">Feb 2026</h5>
-    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Inicio Fase 1</p>
-  </div>
-</div>
-<div className="lg:col-span-12 bg-surface-container h-[600px] border border-outline-variant/20 flex items-center justify-center group overflow-hidden relative z-10">
-<motion.div 
-  initial={{ scale: 1.15 }} 
-  whileInView={{ scale: 1 }} 
-  transition={{ duration: 1.5, ease: "easeOut" }} 
-  className="relative w-full h-full"
->
-  <Image 
-    className="object-cover opacity-100 transition-all duration-1000 z-0" 
-    alt="Architectural technical drawing of a luxury villa masterplan" 
-    src="/renders/VITAE_PLANTA_C.png"
-    fill
-  />
-</motion.div>
-<div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-transparent transition-colors">
-<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 font-label uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">
-                                Expand Technical Blueprint
-                            </motion.button>
-</div>
-</div>
-</div>
-</motion.section>
 {/* VILLAS PRODUCT CARDS */}
 <motion.section id="villas" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-background">
 <div className="max-w-[1920px] mx-auto">
@@ -260,10 +312,10 @@ export default function Home() {
                         Espacios de triple altura, materiales nobles y tecnología de bio-hacking integrada para asegurar el descanso y la regeneración celular.
                     </p>
 </div>
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-outline-variant/10">
-{/* Villa Item 1 */}
-<div className="group border-r border-outline-variant/10">
-<div className="aspect-[4/5] overflow-hidden relative">
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-outline-variant/10 lg:items-stretch">
+{/* Villa Item 1 – Model Starters */}
+<div className="group border-r border-outline-variant/10 flex flex-col">
+<div className="aspect-[4/5] overflow-hidden relative flex-shrink-0">
 <motion.div 
   initial={{ scale: 1.15 }} 
   whileInView={{ scale: 1 }} 
@@ -279,12 +331,12 @@ export default function Home() {
 </motion.div>
 <div className="absolute top-6 left-6 bg-primary text-on-primary px-3 py-1 font-label text-[10px] uppercase tracking-widest font-bold">Model Starters</div>
 </div>
-<div className="p-10 bg-surface-container-low group-hover:bg-surface-container-high transition-colors">
+<div className="flex flex-col flex-1 p-10 bg-surface-container-low group-hover:bg-surface-container-high transition-colors">
 <div className="flex justify-between items-start mb-6">
   <h4 className="font-headline text-2xl font-bold text-white">The Biophilic Starter</h4>
   <span className="font-label text-primary font-bold text-lg">181 m²</span>
 </div>
-<ul className="space-y-3 mb-10">
+<ul className="flex-1 space-y-3 mb-10">
 <li className="flex items-center gap-4 text-on-surface-variant text-sm">
 <span className="material-symbols-outlined text-primary text-xl">bed</span>
                                     3 Habitaciones King
@@ -302,14 +354,18 @@ export default function Home() {
                                     Muros Verdes Integrados
                                 </li>
 </ul>
-<button className="w-full border border-primary/30 text-primary py-4 font-manrope uppercase tracking-[0.2em] text-[10px] hover:bg-primary hover:text-on-primary transition-all">
-                                Solicitar Dossier
-                            </button>
+<Link
+  href="/villas/starters"
+  className="w-full border border-primary/30 text-primary py-4 font-manrope uppercase tracking-[0.2em] text-[10px] hover:bg-primary hover:text-on-primary transition-all mt-auto flex items-center justify-center gap-2 group"
+>
+  Ver más
+  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</Link>
 </div>
 </div>
-{/* Villa Item 2 (Active/Focus) */}
-<div className="group border-r border-outline-variant/10">
-<div className="aspect-[4/5] overflow-hidden relative">
+{/* Villa Item 2 – Model Beta (Active/Focus) */}
+<div className="group flex flex-col">
+<div className="aspect-[4/5] overflow-hidden relative flex-shrink-0">
 <motion.div 
   initial={{ scale: 1.15 }} 
   whileInView={{ scale: 1 }} 
@@ -325,12 +381,20 @@ export default function Home() {
 </motion.div>
 <div className="absolute top-6 left-6 bg-primary text-on-primary px-3 py-1 font-label text-[10px] uppercase tracking-widest font-bold">Model Beta</div>
 </div>
-<div className="p-10 bg-surface-container transition-colors">
+<div className="flex flex-col flex-1 p-10 bg-surface-container transition-colors">
 <div className="flex justify-between items-start mb-6">
   <h4 className="font-headline text-2xl font-bold text-white">Regenerative Sanctuary</h4>
   <span className="font-label text-primary font-bold text-lg">240 m²</span>
 </div>
-<ul className="space-y-3 mb-10">
+<ul className="flex-1 space-y-3 mb-10">
+<li className="flex items-center gap-4 text-on-surface-variant text-sm">
+<span className="material-symbols-outlined text-primary text-xl">bed</span>
+                                    4 Habitaciones King
+                                </li>
+<li className="flex items-center gap-4 text-on-surface-variant text-sm">
+<span className="material-symbols-outlined text-primary text-xl">shower</span>
+                                    3.5 - 4.5 Baños
+                                </li>
 <li className="flex items-center gap-4 text-on-surface-variant text-sm">
 <span className="material-symbols-outlined text-primary text-xl">thermostat</span>
                                     Smart Thermal Control
@@ -344,51 +408,13 @@ export default function Home() {
                                     Advanced Water Filtration
                                 </li>
 </ul>
-<button className="w-full bg-primary text-on-primary py-4 font-manrope uppercase tracking-[0.2em] text-[10px] font-bold hover:scale-[0.98] transition-all">
-                                Solicitar Dossier
-                            </button>
-</div>
-</div>
-{/* Villa Item 3 */}
-<div className="group">
-<div className="aspect-[4/5] overflow-hidden relative">
-<motion.div 
-  initial={{ scale: 1.15 }} 
-  whileInView={{ scale: 1 }} 
-  transition={{ duration: 1.2, ease: "easeOut" }} 
-  className="relative w-full h-full"
+<Link
+  href="/villas/beta"
+  className="w-full bg-primary text-on-primary py-4 font-manrope uppercase tracking-[0.2em] text-[10px] font-bold hover:bg-primary-container transition-all mt-auto flex items-center justify-center gap-2 group"
 >
-  <Image 
-    className="object-cover group-hover:scale-110 transition-transform duration-1000" 
-    alt="High performance loft interior design" 
-    src="/renders/WELLNESS_TIPOLOGÍA PREMIUM_10.03.26 (2).png"
-    fill
-  />
-</motion.div>
-<div className="absolute top-6 left-6 bg-primary text-on-primary px-3 py-1 font-label text-[10px] uppercase tracking-widest font-bold">Model Delta</div>
-</div>
-<div className="p-10 bg-surface-container-low group-hover:bg-surface-container-high transition-colors">
-<div className="flex justify-between items-start mb-6">
-  <h4 className="font-headline text-2xl font-bold text-white">Performance Loft</h4>
-  <span className="font-label text-primary font-bold text-lg">301 m²</span>
-</div>
-<ul className="space-y-3 mb-10">
-<li className="flex items-center gap-4 text-on-surface-variant text-sm">
-<span className="material-symbols-outlined text-primary text-xl">sound_detection_dog_barking</span>
-                                    Acoustic Isolation Elite
-                                </li>
-<li className="flex items-center gap-4 text-on-surface-variant text-sm">
-<span className="material-symbols-outlined text-primary text-xl">air</span>
-                                    HEPA Air Purification
-                                </li>
-<li className="flex items-center gap-4 text-on-surface-variant text-sm">
-<span className="material-symbols-outlined text-primary text-xl">shield</span>
-                                    High-Performance Security
-                                </li>
-</ul>
-<button className="w-full border border-primary/30 text-primary py-4 font-manrope uppercase tracking-[0.2em] text-[10px] hover:bg-primary hover:text-on-primary transition-all">
-                                Solicitar Dossier
-                            </button>
+  Ver más
+  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</Link>
 </div>
 </div>
 </div>
@@ -449,7 +475,7 @@ export default function Home() {
 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 px-12 py-20 w-full max-w-[1920px] mx-auto">
 <div className="space-y-8">
 <div className="relative h-10 w-32">
-  <Image src="/logo-final.png" alt="VITAE Logo" fill className="object-contain" />
+  <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" />
 </div>
 <p className="font-inter text-[11px] tracking-widest uppercase leading-loose text-white/40">
                     Vistacana, Punta Cana<br/>
@@ -474,7 +500,6 @@ export default function Home() {
 </div>
 </div>
 </footer>
-
     </div>
   );
 }
