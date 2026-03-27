@@ -5,7 +5,8 @@ import VillaClientPage from './VillaClientPage';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const villa = VILLAS[slug];
+  // Defaulting to 'es' for SEO metadata
+  const villa = VILLAS['es'][slug];
   if (!villa) return { title: 'Villa Not Found' };
   
   return {
@@ -16,11 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function VillaDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const villa = VILLAS[slug];
   
-  if (!villa) {
+  // Validate slug exists in at least one language
+  if (!VILLAS['es'][slug] && !VILLAS['en'][slug]) {
     notFound();
   }
 
-  return <VillaClientPage villa={villa} />;
+  return <VillaClientPage slug={slug} />;
 }
