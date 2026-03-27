@@ -297,14 +297,23 @@ export default function Home() {
               <h2 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight mb-8" dangerouslySetInnerHTML={{ __html: t.wellness.headline }} />
               <p className="font-body text-on-surface-variant text-xl max-w-3xl leading-relaxed">{t.wellness.description}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { staggerChildren: 0.15 } }
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            >
               {t.wellness.items.map((item, idx) => (
                 <motion.div 
                   key={idx} 
-                  initial={{ opacity: 0, y: 30 }} 
-                  whileInView={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: idx * 0.2, duration: 0.8 }}
-                  viewport={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
+                  }}
                   className="relative group h-[500px] overflow-hidden border border-outline-variant/10"
                 >
                   <Image 
@@ -313,6 +322,7 @@ export default function Home() {
                     fill 
                     className="object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70" 
                     unoptimized
+                    priority={idx === 0}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                   <div className="relative z-10 p-10 h-full flex flex-col justify-end">
@@ -325,7 +335,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -336,19 +346,36 @@ export default function Home() {
               <h3 className="font-headline text-xs uppercase tracking-[0.5em] text-primary mb-4">{t.villas.label}</h3>
               <h2 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight" dangerouslySetInnerHTML={{ __html: t.villas.headline }} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
-              {['starters', 'beta'].map((slug) => {
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { staggerChildren: 0.2 } }
+              }}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16"
+            >
+              {['starters', 'beta'].map((slug, i) => {
                 const villa = VILLAS[language][slug];
                 return (
                   <motion.div 
                     key={slug}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
+                    }}
                     className="group"
                   >
-                    <div className="relative h-[500px] overflow-hidden border border-outline-variant/10">
-                      <Image src={villa.heroImage} alt={villa.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" unoptimized />
+                    <div className="relative h-[500px] overflow-hidden border border-outline-variant/10 shadow-2xl">
+                      <Image 
+                        src={villa.heroImage} 
+                        alt={villa.name} 
+                        fill 
+                        className="object-cover transition-transform duration-1000 group-hover:scale-105" 
+                        unoptimized 
+                        priority={i === 0}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
                       <div className="absolute bottom-8 left-8 right-8">
                         <span className="inline-block bg-primary text-on-primary px-3 py-1 text-[9px] uppercase font-bold tracking-widest mb-4">
@@ -373,7 +400,7 @@ export default function Home() {
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -435,7 +462,7 @@ export default function Home() {
             <div className="lg:w-1/2 grid grid-cols-1 gap-8">
                <div className="bg-surface-container-low border border-outline-variant/10 p-12 flex items-center justify-center">
                   <div className="relative h-20 w-64">
-                    <Image src="/gps_logo_full.svg" alt="Grupo Paseo del Sendero" fill className="object-contain brightness-0 invert opacity-80" unoptimized />
+                    <Image src="/gps_logo_full.svg" alt="Grupo Paseo del Sendero" fill className="object-contain opacity-90 transition-opacity hover:opacity-100" unoptimized />
                   </div>
                </div>
                <div className="grid grid-cols-2 gap-4">
@@ -462,9 +489,9 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
           <div className="absolute inset-0 bg-black/40" />
           
-          <div className="max-w-[1920px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-4">
-              <h2 className="font-headline text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-[0.9]">{t.cta_footer.headline}</h2>
+          <div className="max-w-[1920px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+            <div className="lg:col-span-5">
+              <h2 className="font-headline text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-[0.9] text-white" dangerouslySetInnerHTML={{ __html: t.cta_footer.headline }} />
               <p className="font-body text-on-surface-variant text-lg lg:text-xl leading-relaxed mb-12 max-w-md">
                 {t.cta_footer.description}
               </p>
@@ -486,7 +513,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="lg:col-span-8 bg-surface-container-low border border-outline-variant/10 p-8 md:p-16 backdrop-blur-md">
+            <div className="lg:col-span-7 bg-surface-container-low/80 border border-outline-variant/10 p-8 md:p-16 backdrop-blur-xl">
                <ContactForm villaName="VITAE Residences" lang={language as any} />
             </div>
           </div>
@@ -533,9 +560,11 @@ export default function Home() {
           </div>
           
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="font-label text-[9px] uppercase tracking-[0.4em] text-white/20">
-              © 2026 VITAE residences. Developed for high performance humans.
-            </p>
+            <div className="font-label text-[9px] uppercase tracking-[0.4em] text-white/20 flex flex-wrap items-center gap-1 text-center md:text-left">
+              <span>© 2026 VITAE residences. Creado con ❤️ por</span>
+              <a href="https://www.contextoarquitectura.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-white transition-colors underline underline-offset-4 decoration-primary/30">CNTXT arquitectura</a>
+              <span>, en Medellín Colombia.</span>
+            </div>
             <div className="flex gap-8">
               <Link href="#" className="font-label text-[9px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="#" className="font-label text-[9px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Terms of Service</Link>
