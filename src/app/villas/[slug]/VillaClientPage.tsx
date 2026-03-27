@@ -270,6 +270,7 @@ export default function VillaClientPage({ slug }: { slug: string }) {
   const { language, setLanguage } = useLanguage();
   const villa = VILLAS[language][slug as keyof typeof VILLAS['es']];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   if (!villa) {
      return notFound();
@@ -369,8 +370,8 @@ export default function VillaClientPage({ slug }: { slug: string }) {
           <Link href="/" className="relative h-8 w-24 block">
             <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" priority unoptimized />
           </Link>
-          <div className="flex items-center gap-8">
-             <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
+          <div className="flex items-center gap-4 lg:gap-8">
+             <div className="hidden sm:flex bg-white/5 rounded-full p-1 border border-white/10">
               <button 
                 onClick={() => setLanguage('es')}
                 className={`px-3 py-1 text-[9px] uppercase font-bold tracking-widest transition-all rounded-full ${language === 'es' ? 'bg-primary text-on-primary' : 'text-white/40 hover:text-white'}`}
@@ -386,13 +387,61 @@ export default function VillaClientPage({ slug }: { slug: string }) {
             </div>
             <Link
               href="/#villas"
-              className="flex items-center gap-2 text-on-surface-variant hover:text-white transition-colors font-label text-[10px] uppercase tracking-widest"
+              className="hidden md:flex items-center gap-2 text-on-surface-variant hover:text-white transition-colors font-label text-[10px] uppercase tracking-widest"
             >
               <span className="material-symbols-outlined text-sm">arrow_back</span>
               {ui.back}
             </Link>
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-white w-10 h-10 flex items-center justify-center bg-white/5 rounded-full border border-white/10"
+            >
+              <span className="material-symbols-outlined">{isMenuOpen ? 'close' : 'menu'}</span>
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-0 z-40 bg-background flex flex-col justify-center items-center p-8 md:hidden"
+            >
+              <div className="absolute top-8 right-8 flex items-center gap-4">
+                 <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
+                    <button onClick={() => setLanguage('es')} className={`px-4 py-2 text-xs uppercase font-bold tracking-widest transition-all rounded-full ${language === 'es' ? 'bg-primary text-on-primary' : 'text-white/40'}`}>ES</button>
+                    <button onClick={() => setLanguage('en')} className={`px-4 py-2 text-xs uppercase font-bold tracking-widest transition-all rounded-full ${language === 'en' ? 'bg-primary text-on-primary' : 'text-white/40'}`}>EN</button>
+                 </div>
+                 <button onClick={() => setIsMenuOpen(false)} className="text-white w-12 h-12 flex items-center justify-center bg-white/5 rounded-full border border-white/10">
+                    <span className="material-symbols-outlined text-3xl">close</span>
+                 </button>
+              </div>
+              
+              <div className="flex flex-col gap-8 text-center">
+                <Link href="/" onClick={() => setIsMenuOpen(false)} className="font-headline text-3xl font-bold text-white uppercase tracking-tighter hover:text-primary transition-colors">
+                  {language === 'es' ? 'Inicio' : 'Home'}
+                </Link>
+                <Link href="/#villas" onClick={() => setIsMenuOpen(false)} className="font-headline text-3xl font-bold text-white uppercase tracking-tighter hover:text-primary transition-colors">
+                  {language === 'es' ? 'Villas' : 'Villas'}
+                </Link>
+                <Link href="#contacto" onClick={() => setIsMenuOpen(false)} className="font-headline text-3xl font-bold text-white uppercase tracking-tighter hover:text-primary transition-colors">
+                  {language === 'es' ? 'Contacto' : 'Contact'}
+                </Link>
+              </div>
+              
+              <div className="absolute bottom-12 w-full px-8 flex justify-between items-center opacity-40">
+                <div className="h-6 w-24 relative">
+                  <Image src="/vitae-logo.png" alt="VITAE" fill className="object-contain" unoptimized />
+                </div>
+                <p className="font-label text-[9px] uppercase tracking-widest">© 2026</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <section className="relative h-screen flex items-end overflow-hidden">
@@ -426,7 +475,7 @@ export default function VillaClientPage({ slug }: { slug: string }) {
         transition={{ duration: 0.6 }}
         className="bg-surface-container border-b border-outline-variant/10"
       >
-        <div className="max-w-[1920px] mx-auto px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-outline-variant/10">
+        <div className="max-w-[1920px] mx-auto px-8 py-8 grid grid-cols-2 md:grid-cols-4 gap-0 md:divide-x divide-outline-variant/10">
           {[
             { icon: 'square_foot', label: ui.areaLabel, value: villa.area },
             { icon: 'bed', label: ui.bedLabel, value: villa.bedrooms },

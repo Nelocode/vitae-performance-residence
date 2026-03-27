@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
@@ -11,7 +11,15 @@ import { VILLAS } from './villas/[slug]/data';
 export default function Home() {
   const { language, setLanguage } = useLanguage();
   const t = HOME_TRANSLATIONS[language];
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
   const [activeSection, setActiveSection] = useState<string>('performance');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.playbackRate = 0.65;
+    }
+  }, []);
 
   useEffect(() => {
     const sectionIds = ['performance', 'masterplan', 'wellness', 'villas', 'location', 'team'];
@@ -81,8 +89,8 @@ export default function Home() {
             {navLink('location', t.nav.location)}
             {navLink('team', t.nav.team)}
           </div>
-          <div className="flex items-center space-x-6">
-            <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
+          <div className="flex items-center space-x-4 lg:space-x-6">
+            <div className="hidden sm:flex bg-white/5 rounded-full p-1 border border-white/10">
               <button 
                 onClick={() => setLanguage('es')}
                 className={`px-3 py-1 text-[10px] uppercase font-bold tracking-widest transition-all rounded-full ${language === 'es' ? 'bg-primary text-on-primary' : 'text-white/60 hover:text-white'}`}
@@ -96,22 +104,69 @@ export default function Home() {
                 EN
               </button>
             </div>
+            
+            <button 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-white w-10 h-10 flex items-center justify-center bg-white/5 rounded-full border border-white/10"
+            >
+              <span className="material-symbols-outlined">{isMenuOpen ? 'close' : 'menu'}</span>
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-0 z-40 bg-background flex flex-col justify-center items-center p-8 md:hidden"
+            >
+              <div className="absolute top-8 right-8 flex items-center gap-4">
+                 <div className="flex bg-white/5 rounded-full p-1 border border-white/10">
+                    <button onClick={() => setLanguage('es')} className={`px-4 py-2 text-xs uppercase font-bold tracking-widest transition-all rounded-full ${language === 'es' ? 'bg-primary text-on-primary' : 'text-white/40'}`}>ES</button>
+                    <button onClick={() => setLanguage('en')} className={`px-4 py-2 text-xs uppercase font-bold tracking-widest transition-all rounded-full ${language === 'en' ? 'bg-primary text-on-primary' : 'text-white/40'}`}>EN</button>
+                 </div>
+                 <button onClick={() => setIsMenuOpen(false)} className="text-white w-12 h-12 flex items-center justify-center bg-white/5 rounded-full border border-white/10">
+                    <span className="material-symbols-outlined text-3xl">close</span>
+                 </button>
+              </div>
+              
+              <div className="flex flex-col gap-8 text-center">
+                {['performance', 'masterplan', 'wellness', 'villas', 'location', 'team'].map((section, idx) => (
+                  <motion.a
+                    key={section}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    href={`#${section}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="font-headline text-3xl font-bold text-white uppercase tracking-tighter hover:text-primary transition-colors"
+                  >
+                    {t.nav[section === 'wellness' ? 'cycle' : section as keyof typeof t.nav]}
+                  </motion.a>
+                ))}
+              </div>
+              
+              <div className="absolute bottom-12 w-full px-8 flex justify-between items-center opacity-40">
+                <div className="h-6 w-24 relative">
+                  <Image src="/vitae-logo.png" alt="VITAE" fill className="object-contain" unoptimized />
+                </div>
+                <p className="font-label text-[9px] uppercase tracking-widest">© 2026</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main>
         {/* HERO */}
         <section className="relative min-h-screen flex flex-col justify-center items-center px-8 overflow-hidden">
-          <div className="absolute inset-0 w-full h-full overflow-hidden scale-105 pointer-events-none">
-            <iframe
-              src="https://player.vimeo.com/video/1177694981?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1&controls=0"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full"
-              frameBorder="0"
-              allow="autoplay; fullscreen"
-              title="Vitae Residences Background"
-            ></iframe>
-          </div>
+          <video ref={heroVideoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80">
+            <source src="/dynamic-video.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-black/70 z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 hero-gradient z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 blueprint-grid opacity-30 z-[1] pointer-events-none"></div>
@@ -156,16 +211,29 @@ export default function Home() {
         </section>
 
         {/* PERFORMANCE DISRUPTIVE */}
-        <motion.section id="performance" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-32 px-8 bg-surface-container-lowest">
+        <motion.section id="performance" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-24 md:py-32 px-8 bg-surface-container-lowest">
           <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-8">
-              <h2 className="font-headline font-light text-4xl md:text-6xl lg:text-7xl text-white leading-tight" dangerouslySetInnerHTML={{ __html: t.performance.headline }} />
+              <h2 className="font-headline font-light text-4xl md:text-6xl lg:text-8xl text-white leading-tight uppercase tracking-tighter" dangerouslySetInnerHTML={{ __html: t.performance.headline }} />
             </div>
-            <div className="lg:col-span-4 border-l border-outline-variant/20 pl-12 py-4">
-              <p className="font-body text-on-surface-variant text-base leading-loose">
+            <div className="lg:col-span-4 border-l-2 lg:border-l border-primary lg:border-outline-variant/20 pl-8 lg:pl-12 py-4">
+              <p className="font-body text-on-surface-variant text-lg lg:text-xl leading-relaxed">
                 {t.performance.description}
               </p>
             </div>
+          </div>
+          
+          <div className="max-w-[1920px] mx-auto mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-outline-variant/10">
+            {t.performance.stats.map((stat, i) => (
+              <div key={i} className="flex flex-col group lg:px-12">
+                <span className="font-headline text-5xl lg:text-8xl text-white font-black mb-2 group-hover:text-primary transition-colors tracking-tighter">
+                  {stat.value}
+                </span>
+                <span className="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
         </motion.section>
 
@@ -217,26 +285,39 @@ export default function Home() {
         </motion.section>
 
         {/* WELLNESS ECOSYSTEM */}
-        <section id="wellness" className="py-32 px-8 bg-surface overflow-hidden">
+        <section id="wellness" className="py-32 px-8 bg-surface overflow-hidden border-t border-outline-variant/10">
           <div className="max-w-[1920px] mx-auto">
             <div className="mb-20">
-              <h3 className="font-headline text-xs uppercase tracking-[0.5em] text-primary mb-4">{t.wellness.label}</h3>
+              <h3 className="font-headline text-xs lg:text-sm uppercase tracking-[0.5em] text-primary mb-4">{t.wellness.label}</h3>
               <h2 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight mb-8" dangerouslySetInnerHTML={{ __html: t.wellness.headline }} />
               <p className="font-body text-on-surface-variant text-xl max-w-3xl leading-relaxed">{t.wellness.description}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {t.wellness.items.map((item, idx) => (
                 <motion.div 
                   key={idx} 
-                  initial={{ opacity: 0, y: 20 }} 
+                  initial={{ opacity: 0, y: 30 }} 
                   whileInView={{ opacity: 1, y: 0 }} 
-                  transition={{ delay: idx * 0.2 }}
+                  transition={{ delay: idx * 0.2, duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="bg-white/5 p-10 border-l border-primary/20 hover:bg-white/10 transition-all"
+                  className="relative group h-[500px] overflow-hidden border border-outline-variant/10"
                 >
-                  <span className="block text-primary font-bold mb-4 opacity-50 text-sm">0{idx + 1}</span>
-                  <h4 className="font-headline text-2xl text-white mb-4">{item.title}</h4>
-                  <p className="font-body text-on-surface-variant font-light leading-loose">{item.desc}</p>
+                  <Image 
+                    src={idx === 0 ? '/renders/WELLNESS_ESTANCIA_10.03.26.png' : idx === 1 ? '/renders/WELLNESS_GIMNASIO_10.03.26.png' : '/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png'} 
+                    alt={item.title} 
+                    fill 
+                    className="object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70" 
+                    unoptimized
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                  <div className="relative z-10 p-10 h-full flex flex-col justify-end">
+                    <span className="material-symbols-outlined text-primary text-4xl mb-6 block">
+                      {idx === 0 ? 'bolt' : idx === 1 ? 'fitness_center' : 'self_improvement'}
+                    </span>
+                    <span className="block text-primary font-bold mb-2 opacity-50 text-xs tracking-widest">0{idx + 1}</span>
+                    <h4 className="font-headline text-3xl font-bold text-white mb-4 uppercase tracking-tight">{item.title}</h4>
+                    <p className="font-body text-on-surface-variant text-sm leading-relaxed font-light">{item.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -250,7 +331,7 @@ export default function Home() {
               <h3 className="font-headline text-xs uppercase tracking-[0.5em] text-primary mb-4">{t.villas.label}</h3>
               <h2 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight" dangerouslySetInnerHTML={{ __html: t.villas.headline }} />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
               {['starters', 'beta'].map((slug) => {
                 const villa = VILLAS[language][slug];
                 return (
@@ -263,12 +344,14 @@ export default function Home() {
                   >
                     <div className="relative h-[500px] overflow-hidden border border-outline-variant/10">
                       <Image src={villa.heroImage} alt={villa.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" unoptimized />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent" />
                       <div className="absolute bottom-8 left-8 right-8">
-                        <span className="inline-block bg-primary/20 backdrop-blur-md border border-primary/30 text-primary px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest mb-4">
+                        <span className="inline-block bg-primary text-on-primary px-3 py-1 text-[9px] uppercase font-bold tracking-widest mb-4">
                           {villa.category}
                         </span>
-                        <h4 className="font-headline text-3xl text-white mb-2">{villa.name}</h4>
+                        <h4 className="font-headline text-4xl lg:text-5xl font-extrabold text-white mb-3 uppercase drop-shadow-2xl">
+                          {villa.name}
+                        </h4>
                         <p className="font-body text-white/70 font-light mb-6 line-clamp-2">{villa.description}</p>
                         <div className="flex items-center space-x-8 text-white/60 text-xs mb-8">
                           <span className="flex items-center gap-2"><span className="material-symbols-outlined text-sm">square_foot</span>{villa.area}</span>
@@ -322,55 +405,110 @@ export default function Home() {
         </section>
 
         {/* THE TEAM BEHIND */}
-        <section id="team" className="py-32 px-8 bg-surface-container-highest">
-          <div className="max-w-[1920px] mx-auto">
-            <div className="text-center mb-20">
+        <section id="team" className="py-32 px-8 bg-surface-container-highest border-t border-outline-variant/10">
+          <div className="max-w-[1920px] mx-auto lg:flex gap-20 items-center">
+            <div className="lg:w-1/2 mb-16 lg:mb-0">
               <h3 className="font-headline text-xs uppercase tracking-[0.5em] text-primary mb-4">{t.team.label}</h3>
-              <h2 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight mb-8" dangerouslySetInnerHTML={{ __html: t.team.headline }} />
-              <p className="font-body text-on-surface-variant text-xl max-w-3xl mx-auto">{t.team.description}</p>
+              <h2 className="font-headline text-5xl md:text-6xl font-bold text-white tracking-tight mb-8 uppercase" dangerouslySetInnerHTML={{ __html: t.team.headline }} />
+              <p className="font-body text-on-surface-variant text-xl leading-relaxed mb-12">{t.team.description}</p>
+              
+              <div className="bg-primary/5 border-l-4 border-primary p-10 md:p-14 backdrop-blur-xl">
+                 <h4 className="font-headline text-3xl font-bold text-white mb-4 uppercase">Grupo Paseo del Sendero</h4>
+                 <p className="font-body text-on-surface-variant text-lg leading-relaxed mb-6 font-light">
+                    {language === 'es' 
+                      ? 'Liderado por Alberto Vásquez con más de 30 años de experiencia internacional. El grupo ha transformado el paisaje de Vistacana con desarrollos temáticos que priorizan la calidad de vida y el bienestar.' 
+                      : 'Led by Alberto Vásquez with over 30 years of international experience. The group has transformed the Vistacana landscape with themed developments that prioritize quality of life and well-being.'}
+                 </p>
+                 <div className="flex flex-wrap gap-8 opacity-40">
+                   <span className="font-label uppercase tracking-widest text-[9px] font-bold">Chukum Lagoon</span>
+                   <span className="font-label uppercase tracking-widest text-[9px] font-bold">Pueblito Caribeño</span>
+                   <span className="font-label uppercase tracking-widest text-[9px] font-bold">Royal Gardens</span>
+                 </div>
+              </div>
             </div>
             
-            <div className="bg-white/5 border border-white/10 p-12 md:p-20 text-center max-w-4xl mx-auto backdrop-blur-xl">
-               <div className="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-8">
-                 <span className="material-symbols-outlined text-4xl text-primary">domain</span>
+            <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+               <div className="aspect-[4/5] relative overflow-hidden group">
+                  <Image src="/renders/WELLNESS_ESTANCIA_10.03.26.png" alt="Experience" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
                </div>
-               <h4 className="font-headline text-3xl text-white mb-4">{t.team.developer}</h4>
-               <p className="font-body text-on-surface-variant text-lg leading-relaxed mb-8">{t.team.experience}</p>
-               <div className="flex flex-wrap justify-center gap-12 pt-8 border-t border-white/10 opacity-60">
-                 <span className="font-label uppercase tracking-widest text-[10px]">Partner Inmobiliario</span>
-                 <span className="font-label uppercase tracking-widest text-[10px]">Desarrollo Sostenible</span>
-                 <span className="font-label uppercase tracking-widest text-[10px]">Arquitectura Wellness</span>
+               <div className="aspect-[4/5] relative overflow-hidden group mt-12">
+                  <Image src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png" alt="Innovation" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
                </div>
             </div>
           </div>
         </section>
 
         {/* FINAL CTA FOOTER */}
-        <section className="py-32 px-8 bg-primary text-on-primary text-center relative overflow-hidden">
-          <div className="absolute inset-0 blueprint-grid opacity-20 pointer-events-none" />
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <h2 className="font-headline text-5xl md:text-7xl font-extrabold mb-8 tracking-tighter">{t.cta_footer.headline}</h2>
-            <p className="font-body text-on-primary/80 text-xl mb-12 max-w-2xl mx-auto font-light">{t.cta_footer.description}</p>
-            <div className="flex flex-col md:flex-row gap-6 justify-center">
-              <button className="bg-white text-primary px-12 py-5 font-manrope uppercase tracking-widest text-xs font-bold hover:bg-black hover:text-white transition-all">
+        <section className="relative py-48 px-8 overflow-hidden">
+          <Image 
+            src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png" 
+            alt="Evolve" 
+            fill 
+            className="object-cover opacity-50" 
+            unoptimized 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative z-10 max-w-4xl mx-auto text-center">
+            <h2 className="font-headline text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase whitespace-pre-line">{t.cta_footer.headline}</h2>
+            <p className="font-body text-white/80 text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">{t.cta_footer.description}</p>
+            <div className="flex justify-center">
+              <button className="bg-primary text-on-primary px-16 py-6 font-manrope uppercase tracking-[0.3em] text-[10px] font-black hover:bg-white hover:text-black transition-all shadow-2xl">
                 {t.cta_footer.visit}
-              </button>
-              <button className="bg-transparent border border-white text-white px-12 py-5 font-manrope uppercase tracking-widest text-xs font-bold hover:bg-white hover:text-primary transition-all">
-                {t.cta_footer.brochure}
               </button>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="py-12 px-8 border-t border-white/5 bg-background">
-        <div className="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="h-6 w-20 relative opacity-40">
-            <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" unoptimized />
+      <footer className="py-20 px-8 bg-background border-t border-white/5 relative overflow-hidden">
+        <div className="max-w-[1920px] mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-16 mb-20">
+            <div className="max-w-sm">
+              <div className="h-10 w-32 relative mb-8">
+                <Image src="/vitae-logo.png" alt="VITAE" fill className="object-contain" unoptimized />
+              </div>
+              <p className="font-body text-on-surface-variant text-sm leading-relaxed mb-8">
+                {language === 'es' 
+                  ? 'El primer ecosistema residencial de alto rendimiento diseñado para la evolución humana en Vistacana.' 
+                  : 'The first high-performance residential ecosystem designed for human evolution in Vistacana.'}
+              </p>
+              <div className="flex gap-4">
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
+                  <span className="material-symbols-outlined text-sm">public</span>
+                </div>
+                <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
+                  <span className="material-symbols-outlined text-sm">share</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-20">
+              <div>
+                <h5 className="font-headline text-white text-[10px] uppercase tracking-[0.3em] mb-8 font-bold">Navegación</h5>
+                <ul className="space-y-4">
+                  <li><Link href="#performance" className="font-label text-[10px] uppercase text-on-surface-variant hover:text-primary transition-colors tracking-widest">{t.nav.performance}</Link></li>
+                  <li><Link href="#wellness" className="font-label text-[10px] uppercase text-on-surface-variant hover:text-primary transition-colors tracking-widest">{t.nav.cycle}</Link></li>
+                  <li><Link href="#villas" className="font-label text-[10px] uppercase text-on-surface-variant hover:text-primary transition-colors tracking-widest">{t.nav.villas}</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="font-headline text-white text-[10px] uppercase tracking-[0.3em] mb-8 font-bold">Contacto</h5>
+                <p className="font-label text-[10px] uppercase text-on-surface-variant tracking-widest mb-2">Vistacana, Punta Cana</p>
+                <p className="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">info@vitaeresidences.com</p>
+              </div>
+            </div>
           </div>
-          <p className="font-label text-[10px] uppercase tracking-widest text-white/30">
-            © 2026 VITAE residences. Developed for high performance humans.
-          </p>
+          
+          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="font-label text-[9px] uppercase tracking-[0.4em] text-white/20">
+              © 2026 VITAE residences. Developed for high performance humans.
+            </p>
+            <div className="flex gap-8">
+              <Link href="#" className="font-label text-[9px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="#" className="font-label text-[9px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Terms of Service</Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

@@ -20,6 +20,12 @@ export const HOME_TRANSLATIONS = {
     performance: {
       headline: 'No es un club social <span class="text-primary italic">tradicional</span>; es un entorno donde la <span class="font-bold">excelencia</span> es normal.',
       description: 'Diseñado para atletas de la vida, emprendedores de alto impacto y visionarios que entienden que el entorno es el catalizador de la evolución biológica.',
+      stats: [
+        { label: 'Residencias', value: '22' },
+        { label: 'Ecosistema', value: '01' },
+        { label: 'Bio-hacking', value: '100%' },
+        { label: 'High Performance', value: 'MAX' },
+      ]
     },
     wellness: {
       label: 'Wellness Ecosystem',
@@ -47,8 +53,8 @@ export const HOME_TRANSLATIONS = {
       label: 'El equipo detrás',
       headline: 'Visión y <span class="text-primary">Excelencia Inmobiliaria</span>',
       description: 'Unidos por la pasión de crear espacios que trasciendan la arquitectura tradicional y se conviertan en catalizadores de bienestar.',
-      developer: 'Desarrollador Dummy S.A.',
-      experience: 'Más de 15 años transformando el paisaje de Punta Cana con proyectos de vanguardia.',
+      developer: 'Grupo Paseo del Sendero',
+      experience: 'Liderado por Alberto Vásquez con más de 30 años de experiencia internacional y proyectos icónicos en Vistacana.',
     },
     villas: {
       label: 'High Performance Villas',
@@ -83,6 +89,12 @@ export const HOME_TRANSLATIONS = {
     performance: {
       headline: 'It is not a <span class="text-primary italic">traditional</span> social club; it is an environment where <span class="font-bold">excellence</span> is the norm.',
       description: 'Designed for life athletes, high-impact entrepreneurs, and visionaries who understand that the environment is the catalyst for biological evolution.',
+      stats: [
+        { label: 'Residences', value: '22' },
+        { label: 'Ecosystem', value: '01' },
+        { label: 'Bio-hacking', value: '100%' },
+        { label: 'High Performance', value: 'MAX' },
+      ]
     },
     wellness: {
       label: 'Wellness Ecosystem',
@@ -110,8 +122,8 @@ export const HOME_TRANSLATIONS = {
       label: 'The Team Behind',
       headline: 'Vision and <span class="text-primary">Real Estate Excellence</span>',
       description: 'United by the passion to create spaces that transcend traditional architecture and become catalysts for well-being.',
-      developer: 'Dummy Developer Inc.',
-      experience: 'Over 15 years transforming the Punta Cana landscape with cutting-edge projects.',
+      developer: 'Grupo Paseo del Sendero',
+      experience: 'Led by Alberto Vásquez with over 30 years of international experience and iconic projects in Vistacana.',
     },
     villas: {
       label: 'High Performance Villas',
