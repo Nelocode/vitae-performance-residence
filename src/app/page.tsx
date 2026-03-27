@@ -265,8 +265,11 @@ export default function Home() {
               <div className="bg-surface-container-low p-8 border border-outline-variant/10">
                 <span className="material-symbols-outlined text-primary text-3xl mb-4">home</span>
                 <h5 className="font-headline text-3xl font-bold text-white mb-1">22</h5>
-                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                   {language === 'es' ? 'Residencias' : 'Residences'}
+                <p className="text-[10px] text-white/5 tracking-widest uppercase">
+                  Build: {new Date().toISOString().split('T')[0]} | UI v1.2.0
+                </p>
+                <p className="text-white/20 text-[10px] tracking-widest uppercase">
+                  {new Date().getFullYear()} VITAE Residences. All Rights Reserved.
                 </p>
               </div>
               <div className="bg-surface-container-low p-8 border border-outline-variant/10">
@@ -318,7 +321,7 @@ export default function Home() {
                   className="relative group h-[500px] overflow-hidden border border-outline-variant/10"
                 >
                   <Image 
-                    src={idx === 0 ? '/renders/WELLNESS_ESTANCIA_10.03.26.png' : idx === 1 ? '/renders/WELLNESS_GIMNASIO_10.03.26.png' : '/renders/WELLNESS_ZONA COMÚN_10.03.26 (1).png'} 
+                    src={idx === 0 ? '/renders/villa-premium-10.png' : idx === 1 ? '/renders/villa-premium-11.png' : '/renders/villa-premium-12.png'} 
                     alt={item.title} 
                     fill 
                     className="object-cover transition-transform duration-[2000ms] group-hover:scale-110 opacity-70" 
@@ -585,10 +588,15 @@ export default function Home() {
           </div>
           
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="font-label text-[9px] uppercase tracking-[0.4em] text-white/20 flex flex-wrap items-center gap-1 text-center md:text-left">
-              <span>© 2026 VITAE residences. Creado con ❤️ por</span>
-              <a href="https://www.contextoarquitectura.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-white transition-colors underline underline-offset-4 decoration-primary/30">CNTXT arquitectura</a>
-              <span>, en Medellín Colombia.</span>
+            <div className="flex flex-col gap-2">
+              <div className="font-label text-[9px] uppercase tracking-[0.4em] text-white/20 flex flex-wrap items-center gap-1 text-center md:text-left">
+                <span>© 2026 VITAE residences. Creado con ❤️ por</span>
+                <a href="https://www.contextoarquitectura.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-white transition-colors underline underline-offset-4 decoration-primary/30">CNTXT arquitectura</a>
+                <span>, en Medellín Colombia.</span>
+              </div>
+              <div className="text-[8px] text-white/5 tracking-[0.5em] uppercase text-center md:text-left">
+                Build ID: {new Date().toISOString().split('T')[0]}-FINAL
+              </div>
             </div>
             <div className="flex gap-8">
               <Link href="#" className="font-label text-[9px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Privacy Policy</Link>
