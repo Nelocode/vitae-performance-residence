@@ -525,12 +525,12 @@ export default function VillaClientPage({ slug }: { slug: string }) {
              </div>
              <div className="lg:col-span-7 grid grid-cols-2 gap-4">
                 <div className="aspect-[3/4] bg-surface-container-low border border-outline-variant/10 relative overflow-hidden group">
-                   <Image src="/renders/VITAE_PLANTA_C.png" alt="Planta Baja" fill className="object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" />
+                   <Image src="/renders/VITAE_PLANTA_C.png" alt="Planta Baja" fill className="object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" unoptimized />
                    <div className="absolute inset-0 blueprint-grid opacity-20" />
                    <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 text-[8px] uppercase tracking-widest text-white">Level 01</div>
                 </div>
                 <div className="aspect-[3/4] bg-surface-container-low border border-outline-variant/10 relative overflow-hidden group">
-                   <Image src="/renders/VITAE_PLANTA_C.png" alt="Planta Alta" fill className="object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" />
+                   <Image src="/renders/VITAE_PLANTA_C.png" alt="Planta Alta" fill className="object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" unoptimized />
                    <div className="absolute inset-0 blueprint-grid opacity-20" />
                    <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 text-[8px] uppercase tracking-widest text-white">Level 02</div>
                 </div>

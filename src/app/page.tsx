@@ -77,7 +77,7 @@ export default function Home() {
         <div className="flex justify-between items-center w-full px-8 py-6 max-w-[1920px] mx-auto">
           <div className="relative h-10 w-32">
             <Link href="/">
-              <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" priority />
+              <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" priority unoptimized />
             </Link>
           </div>
           <div className="hidden md:flex space-x-8">
@@ -206,7 +206,7 @@ export default function Home() {
             </div>
             <div className="bg-surface-container h-[600px] border border-outline-variant/20 flex items-center justify-center group overflow-hidden relative">
               <motion.div initial={{ scale: 1.15 }} whileInView={{ scale: 1 }} transition={{ duration: 1.5 }} className="relative w-full h-full">
-                <Image src="/renders/VITAE_PLANTA_C.png" alt="Masterplan Blueprint" fill className="object-cover" />
+                <Image src="/renders/VITAE_PLANTA_C.png" alt="Masterplan Blueprint" fill className="object-cover" unoptimized />
               </motion.div>
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-transparent transition-colors">
                 <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 font-label uppercase tracking-widest text-[10px] hover:bg-white hover:text-black transition-all">
@@ -263,7 +263,7 @@ export default function Home() {
                     className="group"
                   >
                     <div className="relative h-[500px] overflow-hidden border border-outline-variant/10">
-                      <Image src={villa.heroImage} alt={villa.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" />
+                      <Image src={villa.heroImage} alt={villa.name} fill className="object-cover transition-transform duration-1000 group-hover:scale-110" unoptimized />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                       <div className="absolute bottom-8 left-8 right-8">
                         <span className="inline-block bg-primary/20 backdrop-blur-md border border-primary/30 text-primary px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest mb-4">
@@ -308,7 +308,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative h-[600px] border border-outline-variant/20 overflow-hidden">
-              <Image src="/renders/VITAE_PLANTA_C.png" alt="Vistacana Map" fill className="object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000" />
+              <Image src="/renders/VITAE_PLANTA_C.png" alt="Vistacana Map" fill className="object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
               <div className="absolute inset-0 bg-primary/10 pointer-events-none" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="relative">
@@ -367,7 +367,7 @@ export default function Home() {
       <footer className="py-12 px-8 border-t border-white/5 bg-background">
         <div className="max-w-[1920px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="h-6 w-20 relative opacity-40">
-            <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" />
+            <Image src="/vitae-logo.png" alt="VITAE Logo" fill className="object-contain" unoptimized />
           </div>
           <p className="font-label text-[10px] uppercase tracking-widest text-white/30">
             © 2026 VITAE residences. Developed for high performance humans.
