@@ -414,10 +414,34 @@ export default function Home() {
               <p className="font-body text-on-surface-variant text-xl mb-12 leading-relaxed">{t.location.description}</p>
               
               <div className="space-y-6">
-                {t.location.points.map((point, idx) => (
-                  <div key={idx} className="flex justify-between items-center py-4 border-b border-white/10 group hover:border-primary/50 transition-all">
+                {(t.location.points as any[]).map((point, idx) => (
+                  <div key={idx} className="flex flex-col sm:flex-row justify-between sm:items-center py-6 border-b border-white/10 group hover:border-primary/50 transition-all gap-4">
                     <span className="font-body text-white text-lg font-light group-hover:text-primary transition-colors">{point.label}</span>
-                    <span className="font-headline text-primary font-bold">{point.dist}</span>
+                    <div className="flex items-center gap-6">
+                      <div className="flex gap-3">
+                        <a 
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(point.query)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-all group/icon"
+                          title="Google Maps"
+                        >
+                          <span className="material-symbols-outlined text-sm">map</span>
+                        </a>
+                        <a 
+                          href={`https://waze.com/ul?q=${encodeURIComponent(point.query)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#33CCFF] hover:border-[#33CCFF] hover:text-white transition-all group/icon"
+                          title="Waze"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.7,13.3c-0.2,0-0.4,0.1-0.6,0.1c-0.6,0-1.2-0.2-1.7-0.7c-0.5-0.5-0.7-1.1-0.7-1.7V9.5c0-3.6-2.9-6.5-6.5-6.5S3.7,5.9,3.7,9.5v1.5c0,0.6-0.2,1.2-0.7,1.7c-0.5,0.5-1.1,0.7-1.7,0.7c-0.2,0-0.4,0-0.6-0.1c-0.3,0-0.5,0.2-0.6,0.4c-0.1,0.3,0.1,0.6,0.4,0.7c1.3,0.5,2.7,0.3,3.9-0.5c0,0.1,0,0.1,0,0.2c0,3.6,2.9,6.5,6.5,6.5s6.5-2.9,6.5-6.5c0-0.1,0-0.1,0-0.2c1.2,0.8,2.6,1,3.9,0.5c0.3-0.1,0.5-0.4,0.4-0.7C20.2,13.5,20,13.3,19.7,13.3z M10.2,17c-2.5,0-4.5-2-4.5-4.5V11c0-0.6,0.4-1,1-1s1,0.4,1,1v1.5c0,1.4,1.1,2.5,2.5,2.5s2.5-1.1,2.5-2.5V11c0-0.6,0.4-1,1-1s1,0.4,1,1v1.5C14.7,15,12.7,17,10.2,17z"/>
+                          </svg>
+                        </a>
+                      </div>
+                      <span className="font-headline text-primary font-bold min-w-[60px] text-right">{point.dist}</span>
+                    </div>
                   </div>
                 ))}
               </div>

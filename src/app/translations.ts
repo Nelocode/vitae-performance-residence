@@ -42,11 +42,11 @@ export const HOME_TRANSLATIONS = {
       headline: 'En el epicentro de <span class="text-primary">Punta Cana</span>',
       description: 'Estratégicamente ubicado en Vistacana, ofreciendo el balance perfecto entre privacidad y acceso a servicios premium.',
       points: [
-        { label: 'Aeropuerto Int. Punta Cana', dist: '15 min' },
-        { label: 'Playas de Bávaro', dist: '10 min' },
-        { label: 'Centros Comerciales', dist: '5 min' },
-        { label: 'Hospitales de clase mundial', dist: '12 min' },
-        { label: 'Colegios Internacionales', dist: '8 min' },
+        { label: 'Aeropuerto Int. Punta Cana', dist: '15 min', query: 'Aeropuerto Internacional de Punta Cana' },
+        { label: 'Playas de Bávaro', dist: '10 min', query: 'Playa Bavaro' },
+        { label: 'Centros Comerciales', dist: '5 min', query: 'Downtown Punta Cana' },
+        { label: 'Hospitales de clase mundial', dist: '12 min', query: 'IMG Hospital Punta Cana' },
+        { label: 'Colegios Internacionales', dist: '8 min', query: 'Heritage School Punta Cana' },
       ]
     },
     team: {
@@ -111,11 +111,11 @@ export const HOME_TRANSLATIONS = {
       headline: 'At the epicenter of <span class="text-primary">Punta Cana</span>',
       description: 'Strategically located in Vistacana, offering the perfect balance between privacy and access to premium services.',
       points: [
-        { label: 'Punta Cana Int. Airport', dist: '15 min' },
-        { label: 'Bavaro Beaches', dist: '10 min' },
-        { label: 'Shopping Centers', dist: '5 min' },
-        { label: 'World-class Hospitals', dist: '12 min' },
-        { label: 'International Schools', dist: '8 min' },
+        { label: 'Punta Cana Int. Airport', dist: '15 min', query: 'Punta Cana International Airport' },
+        { label: 'Bavaro Beaches', dist: '10 min', query: 'Bavaro Beach' },
+        { label: 'Shopping Centers', dist: '5 min', query: 'Downtown Punta Cana' },
+        { label: 'World-class Hospitals', dist: '12 min', query: 'IMG Hospital Punta Cana' },
+        { label: 'International Schools', dist: '8 min', query: 'Heritage School Punta Cana' },
       ]
     },
     team: {
