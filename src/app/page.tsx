@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { HOME_TRANSLATIONS } from './translations';
 import { VILLAS } from './villas/[slug]/data';
+import ContactForm from '@/components/ContactForm';
 
 export default function Home() {
   const { language, setLanguage } = useLanguage();
@@ -164,9 +165,14 @@ export default function Home() {
       <main>
         {/* HERO */}
         <section className="relative min-h-screen flex flex-col justify-center items-center px-8 overflow-hidden">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-80">
-            <source src="/dynamic-video.mp4" type="video/mp4" />
-          </video>
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              src="https://player.vimeo.com/video/1177694981?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115vw] h-[115vh] object-cover opacity-80 pointer-events-none"
+              allow="autoplay; fullscreen"
+              style={{ border: 'none' }}
+            ></iframe>
+          </div>
           <div className="absolute inset-0 bg-black/70 z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 hero-gradient z-[1] pointer-events-none"></div>
           <div className="absolute inset-0 blueprint-grid opacity-30 z-[1] pointer-events-none"></div>
@@ -210,14 +216,13 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* PERFORMANCE DISRUPTIVE */}
         <motion.section id="performance" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="py-24 md:py-32 px-8 bg-surface-container-lowest">
           <div className="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-8">
-              <h2 className="font-headline font-light text-4xl md:text-6xl lg:text-8xl text-white leading-tight uppercase tracking-tighter" dangerouslySetInnerHTML={{ __html: t.performance.headline }} />
+              <h2 className="font-headline font-light text-4xl md:text-5xl lg:text-6xl text-white leading-tight uppercase tracking-tighter" dangerouslySetInnerHTML={{ __html: t.performance.headline }} />
             </div>
             <div className="lg:col-span-4 border-l-2 lg:border-l border-primary lg:border-outline-variant/20 pl-8 lg:pl-12 py-4">
-              <p className="font-body text-on-surface-variant text-lg lg:text-xl leading-relaxed">
+              <p className="font-body text-on-surface-variant text-base lg:text-lg leading-relaxed">
                 {t.performance.description}
               </p>
             </div>
@@ -226,7 +231,7 @@ export default function Home() {
           <div className="max-w-[1920px] mx-auto mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x divide-outline-variant/10">
             {t.performance.stats.map((stat, i) => (
               <div key={i} className="flex flex-col group lg:px-12">
-                <span className="font-headline text-5xl lg:text-8xl text-white font-black mb-2 group-hover:text-primary transition-colors tracking-tighter">
+                <span className="font-headline text-5xl lg:text-6xl text-white font-black mb-2 group-hover:text-primary transition-colors tracking-tighter">
                   {stat.value}
                 </span>
                 <span className="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface-variant font-bold">
@@ -427,35 +432,62 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-               <div className="aspect-[4/5] relative overflow-hidden group">
-                  <Image src="/renders/WELLNESS_ESTANCIA_10.03.26.png" alt="Experience" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
+            <div className="lg:w-1/2 grid grid-cols-1 gap-8">
+               <div className="bg-surface-container-low border border-outline-variant/10 p-12 flex items-center justify-center">
+                  <div className="relative h-20 w-64">
+                    <Image src="/gps_logo_full.svg" alt="Grupo Paseo del Sendero" fill className="object-contain brightness-0 invert opacity-80" unoptimized />
+                  </div>
                </div>
-               <div className="aspect-[4/5] relative overflow-hidden group mt-12">
-                  <Image src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png" alt="Innovation" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
+               <div className="grid grid-cols-2 gap-4">
+                  <div className="aspect-[4/5] relative overflow-hidden group">
+                     <Image src="/renders/WELLNESS_ESTANCIA_10.03.26.png" alt="Experience" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
+                  </div>
+                  <div className="aspect-[4/5] relative overflow-hidden group">
+                     <Image src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (3).png" alt="Innovation" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-1000" unoptimized />
+                  </div>
                </div>
             </div>
           </div>
         </section>
 
         {/* FINAL CTA FOOTER */}
-        <section className="relative py-48 px-8 overflow-hidden">
+        <section id="contacto" className="relative py-32 px-8 overflow-hidden">
           <Image 
             src="/renders/WELLNESS_ZONA COMÚN_10.03.26 (2).png" 
             alt="Evolve" 
             fill 
-            className="object-cover opacity-50" 
+            className="object-cover opacity-30" 
             unoptimized 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
           <div className="absolute inset-0 bg-black/40" />
-          <div className="relative z-10 max-w-4xl mx-auto text-center">
-            <h2 className="font-headline text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase whitespace-pre-line">{t.cta_footer.headline}</h2>
-            <p className="font-body text-white/80 text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">{t.cta_footer.description}</p>
-            <div className="flex justify-center">
-              <button className="bg-primary text-on-primary px-16 py-6 font-manrope uppercase tracking-[0.3em] text-[10px] font-black hover:bg-white hover:text-black transition-all shadow-2xl">
-                {t.cta_footer.visit}
-              </button>
+          
+          <div className="max-w-[1920px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-4">
+              <h2 className="font-headline text-5xl md:text-7xl font-black mb-8 tracking-tighter uppercase leading-[0.9]">{t.cta_footer.headline}</h2>
+              <p className="font-body text-on-surface-variant text-lg lg:text-xl leading-relaxed mb-12 max-w-md">
+                {t.cta_footer.description}
+              </p>
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4 border-b border-outline-variant/10 pb-6">
+                  <span className="material-symbols-outlined text-primary text-2xl">calendar_month</span>
+                  <div>
+                    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">{language === 'es' ? 'Experiencia VITAE' : 'VITAE Experience'}</p>
+                    <p className="font-body text-white text-sm">{language === 'es' ? 'Agenda una visita personalizada' : 'Schedule a private showing'}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 border-b border-outline-variant/10 pb-6">
+                  <span className="material-symbols-outlined text-primary text-2xl">download</span>
+                  <div>
+                    <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">{language === 'es' ? 'Información Técnica' : 'Technical Info'}</p>
+                    <p className="font-body text-white text-sm">{language === 'es' ? 'Descarga el Brochure Completo' : 'Download Complete Brochure'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 bg-surface-container-low border border-outline-variant/10 p-8 md:p-16 backdrop-blur-md">
+               <ContactForm villaName="VITAE Residences" lang={language as any} />
             </div>
           </div>
         </section>
